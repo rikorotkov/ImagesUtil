@@ -6,7 +6,7 @@ import java.io.File;
 
 public interface ImageService {
 
-    File save(Image image);
+    File save(Image image, File outputFile);
 
     Image parseFileToImage(File file);
 

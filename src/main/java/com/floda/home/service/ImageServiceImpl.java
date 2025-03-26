@@ -18,9 +18,8 @@ public class ImageServiceImpl implements ImageService {
     List<Image> images = new ArrayList<>();
 
     @Override
-    public File save(Image image) {
+    public File save(Image image, File outputFile) {
         BufferedImage imageModelToFile = new BufferedImage(image.getWidth(), image.getHeight(), BufferedImage.TYPE_INT_RGB);
-        File file = new File("newfile.jpg");
 
         Pixel[][] pixels = image.getPixels();
         for (int x = 0; x < image.getWidth(); x++) {
@@ -32,13 +31,11 @@ public class ImageServiceImpl implements ImageService {
         }
 
         try {
-            ImageIO.write(imageModelToFile, "jpg", file);
-            log.info("Сохраняю изображение из модели в файл");
+            ImageIO.write(imageModelToFile, "jpg", outputFile);
+            return outputFile;
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            throw new RuntimeException("Ошибка сохранения файла", e);
         }
-
-        return file;
     }
 
     @Override
